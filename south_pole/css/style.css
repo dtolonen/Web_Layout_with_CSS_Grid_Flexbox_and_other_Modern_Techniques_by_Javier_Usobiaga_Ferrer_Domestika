@@ -1,0 +1,641 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,800;1,400&display=swap');
+
+/*JAVIER*/
+:root {
+    --color: #103c7a;
+    /*FOR TRANSPARENT NAVK*/
+    --opacity-nav: 0;
+    /*0=invisible,1=visible*/
+    --scrolling_image: 0;
+    --header-pos: 0;
+    --blockquote: 50%;
+    --blockquote-opacity: 0;
+}
+
+/*FOR TRANSPARENT NAV*/
+@media (prefers-reduced-motion: reduce) {
+:root {
+    --scrolling_image: -30% !important;
+    --header-pos: 0 !important;
+    --blockquote: 0 !important;
+    --blockquote-opacity: 1 !important; 
+    }
+} 
+
+
+
+
+/* GENERAL CSS */
+
+* {
+    /*JAVIER*/
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 1.4em/1.8 'EB Garamond', serif;
+    /*JAVIER - NOT SURE IF THE NEXT ONES ARE NEEDED*/
+    min-height: 100%;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+/* JAVIER - WHAT EXTRA DOES THIS OFFER OUTSIDE OF BODY? */
+html {
+    min-height: 100%;
+
+}
+
+/* MAKES SURE FONT IS SMALLER AT MOBILE SIZE */
+@media (max-width: 37.5rem) {
+    body {
+        font-size: 1.2em;
+    }
+}
+
+img {
+    /*JAVIER*/
+    max-width: 100%;
+}
+
+h1 {
+    /*JAVIER*/
+    font-size: 12vw;
+    line-height: 1;
+    /*W OUT, GAP BETWEEN LINES BIGGER - APPARENTLY NOT RELATED TO USE OF VW IN FONT*/
+    font-weight: 600;
+    font-style: italic;
+    opacity: 0.75;
+    margin-bottom: 1rem;
+    /*CLEARS SPACE UNDER H1 TEXT*/
+}
+
+h2 {
+    /*JAVIER, DELETE BEC NO H2 AT ALL?*/
+    font-size: 1.5em;
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+p {
+    /*JAVIER, DELETE BEC DOESN'T SEEM TO DO ANYTHING?*/
+    margin-top: 0;
+    margin-bottom:15px;
+}
+
+
+
+/* HEADER WITH EXPLORER IMAGES */
+
+.header {
+    background: linear-gradient(38deg, #000428, #004e92);
+    color: #fafafa;
+    /*color: #fafafa;*/
+    /*ORIGINAL*/
+    background: var(--color);
+    /*JAVIER*/
+    display: flex;
+    position: relative;
+}
+
+.header_block_1 {
+    height: 100vh;
+    width: 50%;
+}
+
+.header_block_2 {
+    height: 100vh;
+    width: 50%;
+}
+
+.header_title {
+    position: absolute;
+    top: 0;
+    /*THESE FOLLOW ABSOLUTE*/
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*FOR TRANSPARENT NAV*/
+    overflow: hidden; 
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    /*NOT NEC?*/
+    text-align: center;
+    padding: 3em;
+}
+
+/*FOR TRANSPARENT NAV*/
+.header_title h1 {
+    transform: translateY(var(--header-pos));
+} 
+
+.header img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    /*NECESSARY?*/
+    opacity: 0.4;
+    filter: grayscale(100%);
+    /*WITH THIS, THE BLUE OVERLAY IS MORE GREY*/
+}
+
+@media (max-width: 37.5rem) {
+
+    /*THESE ARE RESPONSIVE ADDITIONS TO THE ABOVE CLASSES - ONLY VISIBLE WHEN AT THIS MAX-WIDTH*/
+    .header {
+        flex-direction: column;
+        
+        /*PLACES HEADER IMAGES ON TOP OF EACH OTHER, BUT STILL HORISONTALLY SQUEEZED */
+    }
+
+    .header_block_1 {
+        width: 100%;
+        /*THIS CORRECTS THE HORIS SQUEEZE*/
+        height: 50vh;
+        /*THIS MAKES IT SO, THAT WHEN WINDOW IS VERT SMALLER, THE IMAGE CROPS VERTICALLY (BEFORE IT, THE IMAGES WERE OF FULL HEIGHT)*/
+    }
+
+    .header_block_2 {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .header img {
+        /*NOT SURE ANY OF THESE DO ANYTHING NEW! */
+        width: 100%;
+        height: 100%;
+        object-position: center top;
+    }
+
+    .header_title {
+        align-items: center;
+        /*W OUT THIS, HEADER TEXT IS NOT CENTERED*/
+    }
+}
+
+/*STICKY NAVIGATION BAR*/
+
+.sticky_navigation {
+    grid-column: 1 / -1;
+    position: sticky;
+    /*WITHOUT: nav scrolls away*/
+    z-index: 1;
+    /*NOT NEC?*/
+    top: 0;
+    /*WITHOUT: nav scrolls away*/
+    color: #fafafa;
+    background-color: #1a476d;
+    padding: 0 1.5rem;
+    /*NOT NEC?*/
+
+/*FOR TRANSPARENT NAV*/
+    opacity: var(--opacity-nav); 
+}
+
+
+.sticky_navigation ul {
+    list-style: none;
+    /*WITHOUT: bullets */
+    padding-left: 0;
+    /*NOT NEC?*/
+    display: flex;
+    /*WITHOUT: ul items stack on each other, could use for mobile view*/
+    justify-content: center;
+    /*WITHOUT: items all on left*/
+}
+
+.sticky_navigation a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    /*WITHOUT, LESS SPACE AROUND TEXT*/
+    padding: 1rem 2rem;
+}
+
+/*NOTE IF ABOVE A LINK DISPLAY:BLOCK COMMENTED OUT, HOVER COLOUR SQUARE IS TALLER THAN THE BLUE NAV BAR AND TEXT */
+.sticky_navigation a:hover {
+    background-color: rgba(255, 255, 255, .1);
+}
+
+
+/* MAIN ARTICLE */
+
+
+.article {
+    max-width: 54em;
+    /*CENTRES AND SQUISHES THE WIDTH OF TEXT*/
+    margin: 5em auto;
+    /*CREATES MARGIN ALL AROUND LARGEST TEXT CONTAINER, '.article': 5em must be top+bottom, auto the sides*/
+    padding: 0 3em;
+    /*I GUESS, CREATES PADDING AT LEFT WITH 3em, the first 0 being top/bottom. IF USED 3em alone, no 0, WOULD CREATE PADDING AT TOP+BOTTOM, NOW HANDLED BY THE MARGIN PROPERTY ABOVE*/
+}
+
+.article_intro {
+    /*STYLING FOR FIRST PARAG, TO BE SPLIT INTO 2 COLUMNS*/
+    column-count: 2;
+    column-gap: 3em;
+    /*W OUT THIS THE COLUMNS HUG UPTO EACH OTHER*/
+    column-rule: thick solid rgba(0, 78, 146, 0.05);
+    /*THE LINE BETWEEN COLUMNS*/
+    margin-bottom: 3em;
+    /*MAKES SPACE UNDER PARAGRAPH*/
+    font-weight: 600;
+    font-size: 115%;
+    line-height: 1.7;
+    /*color: #004e92;*/
+    /*ORIGINAL*/
+    color: var(--color);
+    /*JAVIER*/
+    text-align: justify;
+    hyphens: auto;
+    /*HYPHENATION!*/
+}
+
+.article_intro>p {
+    /*NOT SURE WHETHER THIS IS DOING ANYTHING NEW ESP AS ABOVE .article_intro CLASS HAS MARGIN-BOTTOM OF 3em?*/
+    margin-bottom: 0;
+}
+
+.article_body {
+    /*THESE FURTHER SQUEEZE TEXT FROM MAIN .article WIDTH, ABOVE*/
+    max-width: 34em;
+    margin: auto;
+}
+
+.article_body>p:first-child::first-letter {
+    /*BIG PARAG FIRST LETTER*/
+    /*color: #004e92;*/
+    /*ORIGINAL*/
+    color: var(--color);
+    font-size: 12rem;
+    line-height: 0.75;
+    float: left;
+    /*'RIGHT' WOULD PLACE THIS LETTER AT TOP RIGHT OF PARAGRAPH!*/
+    padding-right: 1rem;
+    /*THESE CREATE PADDING AROUND THE FIRST LETTER*/
+    padding-bottom: 1rem;
+}
+
+@media (max-width: 37.5rem) {
+    .article {
+        padding: 0 2em;
+        /*CHANGE ARTICLE PADDING ON MOBILE*/
+    }
+
+    .article_intro {
+        column-count: 1;
+        /*TWO COLUMN PARAG INTO ONE ON MOBILE*/
+        font-size: 100%;
+        text-align: left;
+    }
+}
+
+@media screen and (min-width: 600px)  {
+    .mobile-break { display: none; }
+}
+
+
+/* IMAGES FOR SVG POLYGON PATHS AND SCROLLING IMAGES */
+
+
+
+
+.round_image {
+    border-radius: 50%;
+    max-width: 25em;
+    float: right;
+    margin-right: -10em;
+    /*background: #004e92;*/
+    /*ORIGINAL*/
+    --color: #295b8d;
+    background: var(--color);
+    shape-outside: circle(50%) border-box;
+    shape-margin: 1em;
+
+}
+
+.round_image img {
+    display: block;
+    border-radius: 50%;
+    mix-blend-mode: hard-light;
+}
+
+.scrolling_image {
+    /* max-width: 25em; */
+    background: #004e92;
+    margin: 2rem 0;
+
+    /* display:block;
+    width: 100%; */
+
+    /* float: left; */
+    /*background: #004e92;*/
+    /*ORIGINAL*/
+    /* --color: #d58252;
+    background: var(--color); */
+    margin-left: -20em; /*THESE TWO ALLOW IMAGE TO COVER WHOLE PAGE WIDTH*/
+    margin-right: -20em;  
+
+    /* clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    shape-outside: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) border-box;
+    shape-margin: 1em; */
+}
+
+.scrolling_image img {
+    display: block; 
+    width:100%;
+
+    /* mix-blend-mode: hard-light; */
+    transform: translateY(var(--scrolling_image));
+}
+
+@media (min-width: 60em) {
+    .scrolling_image{
+
+        height: 500px; /*THIS LIMITS HEIGHT OF IMAGE IN BIG SIZE*/
+        overflow: hidden;
+        margin-left:1;
+        margin-right:1;
+
+    }
+}  
+
+@media (max-width: 60em) {
+    .scrolling_image{
+        height: 300px;  
+        /*THIS LIMITS HEIGHT OF IMAGE IN BIG SIZE*/
+        overflow: hidden;
+        /* margin-left:1;
+        margin-right:1;  */
+        margin-left: -2em; /*THESE TWO ALLOW IMAGE TO COVER WHOLE PAGE WIDTH*/
+        margin-right: -2em;
+
+    }
+}  
+
+
+
+.round_image {
+    --color: #1d5685;
+    background: var(--color);
+}
+
+@media (max-width: 37.5rem) {
+    :root {
+        --color: #467d9b;
+    }
+    
+
+    .round_image {
+        margin: 1em;
+        shape-outside: unset;
+    }
+}
+    /* .scrolling_image {
+        margin: 1em;
+        display: inline;
+        /* shape-outside: unset;
+        width: 100vw;
+        padding: none; 
+    }*/ 
+
+
+
+/*ANIMATED BLOCK QUOTE*/
+
+
+
+.blockquote {
+    transform: translateX(var(--blockquote));
+    opacity: var(--blockquote-opacity);
+    font-size: 1.8em;
+    line-height: 1.2;
+    margin: 2rem 0;
+    grid-column: 2 / -2;
+    position: relative;
+    text-align: justify;
+    hyphens: auto;
+    color: var(--color);
+}
+
+
+
+/* .article>blockquote {
+    font-size: 1.2em;
+    line-height: 1.2;
+    margin: 2rem 0;
+    grid-column: 2 / -2;
+    position: relative;
+    hyphens: auto;
+} */
+
+@media (min-width: 60em) {
+    .article>blockquote {
+        font-size: 2em;
+    }
+} 
+
+blockquote::before {
+    content: "“";
+    font-size: 4em;
+    position: absolute;
+    left: -.25em;
+    top: -.25em;
+    color: rgba(0, 0, 0, .05);
+}
+
+
+@media (min-width: 60em) {
+    blockquote::before {
+        font-size: 3em;
+    }
+} 
+
+
+/*BLOCKQUOTE EXAMPLE FROM DEVDOCS APP */
+
+/* blockquote {
+    margin: 0;
+}
+
+blockquote p {
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+}
+
+blockquote p::before {
+    content: '\201C';
+}
+
+blockquote p::after {
+    content: '\201D';
+} */
+
+
+
+
+/* CARDS AT BOTTOM OF PAGE */
+
+.cards_container {
+    padding: 4em 2em;
+    display: flex;
+    justify-content: center;
+
+    /*3D*/
+    perspective: 2000px;
+}
+
+
+@media (max-width: 60rem) {
+
+    /*THESE ARE RESPONSIVE ADDITIONS TO THE ABOVE CLASSES - ONLY VISIBLE WHEN AT THIS MAX-WIDTH*/
+    .cards_container {
+        flex-direction: column;
+        align-items: center;
+        
+        /*PLACES HEADER IMAGES ON TOP OF EACH OTHER, BUT STILL HORISONTALLY SQUEEZED */
+    }
+}
+
+.explorer_card {
+    max-width: 20em;
+    margin: 1em;
+    border-radius: 10px;
+    /* background-color: rgba(250, 250, 250, 0.95); */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+
+    /*3D*/
+    position: relative;
+    transition: transform .5s;
+    transform-style: preserve-3d;
+    width: 500px;
+    height: 500px;
+    cursor: pointer;
+
+
+}
+
+
+/*3D CARD FLIP*/
+.explorer_card.discover {
+    transform: rotateY(180deg);
+}
+
+
+.explorer_image {
+    /* max-height: 20em;
+    overflow: hidden;
+    background: linear-gradient(38deg, #000428, #004e92);
+    border-radius: 10px 10px 0 0; */
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(38deg, #000428, #004e92);
+
+    /*3D*/
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+
+
+}
+
+.explorer_image img {
+    object-fit: cover;
+    display: block;
+    opacity: 0.4;
+    filter: grayscale(100%);
+}
+
+
+.explorer_name_on_card {
+    /*TEXT ON CARD IMAGE*/
+    font-size: 1.17em;
+    font-weight: normal;
+    font-style: italic;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgb(197, 203, 214);
+}
+
+.explorer_content {
+    padding: 1em 1em 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    /*3D*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(250, 250, 250);
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+
+}
+
+
+.explorer_header {
+    border-bottom: 1px solid rgba(0, 78, 146, 0.2);
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.explorer_name {
+    margin: 0;
+    color: #004e92;
+    font-style: italic;
+}
+
+.explorer_dates {
+    color: gray;
+    font-size: 80%;
+}
+
+.explorer_biography {
+    border-radius: 10px;
+    font-size: 0.8em;
+    line-height: 1.5;
+    flex-grow: 1;
+    overflow: scroll;
+}
+
+.explorer_footer {
+    background-color: #004e92;
+    color: white;
+    text-align: center;
+    margin-right: -1em;
+    margin-left: -1em;
+    margin-top: 1em;
+    padding: 0.5em;
+    border-radius: 0 0 10px 10px;
+
+}
+
+
+/* FOOTER */
+.footer {
+    color: #fafafa;
+    background-color: #004e92;
+    font-size: 80%;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 1.5rem;
+}
